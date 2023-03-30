@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Fetch API Example</title>
+        <style type="text/css">
+        </style>
+       
+    </head>
+    <body>
+        <h1>Using the Fetch API</h1>
+        <div id="content">
+            <p>The fetch API makes AJAX-style data requests easier to handle.</p>
+            <p>Open the developer tools console to see the responses from the server.</p>
+        </div>
+
+        <script>
+            window.addEventListener("load", function () {
+                // Perform a regular GET operation
+                fetch("https://gisportal.mnm.punjab.gov.pk/mmd/applications/",{
+                    method: 'options',
+                    body: 'foo=bar',
+
+                    headers: {
+                         "x-Custom-Header": "my-custom-value",
+                         "Authorization" : "Token 8a88146a6df8be5ad797825b99914dd3daeaf36e"
+                    }
+                }
+                
+                
+                
+                
+                ).then(function (response) {
+                    console.log("Content type:", response.headers.get('Content-Type'));
+                    console.log("Redirected: ", response.redirected);
+                    console.log("Status:",   response.status);
+                    console.log("Status text:", response.statusText);
+                    console.log("Response type:", response.type);
+                    console.log("Response URL:", response.url);
+                   
+                    if (response.status == 200) {
+                        return response.text();
+                    }
+                }).then(function (returnedData) {
+                    let appoptions = returnedData.actions.POST;
+                    console.log("Returned data:", appoptions);
+                }).catch(function (error) {
+                    console.log("Error:", error);
+                })
+
+                // perform a POST function with data in the body
+                fetch("https://gisportal.mnm.punjab.gov.pk/mmd/applications/", {
+                    method: 'options',
+                    body: 'foo=bar',
+
+                    headers: {
+                         "x-Custom-Header": "my-custom-value",
+                         "Authorization" : "Token 8a88146a6df8be5ad797825b99914dd3daeaf36e"
+                    }
+                }).then(function (response) {
+                    return response.text();
+                }).then(function (returnedData) {
+                    console.log("Returned data:", returnedData);
+                }).catch(function (error) {
+                    console.log('Request failed', error);
+                });
+            });
+        </script>
+    </body>
+</html>
